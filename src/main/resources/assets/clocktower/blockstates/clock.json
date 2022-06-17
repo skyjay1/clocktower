@@ -1,0 +1,23 @@
+{
+  "variants": {
+    "half=top,side=left,facing=north": { "model": "clocktower:block/clock_mirror", "uvlock": true, "y": 180},
+    "half=bottom,side=left,facing=north": { "model": "clocktower:block/clock", "uvlock": true, "y": 180},
+    "half=top,side=right,facing=north": { "model": "clocktower:block/clock", "uvlock": true, "x": 180},
+    "half=bottom,side=right,facing=north": { "model": "clocktower:block/clock_mirror", "uvlock": true, "x": 180},
+
+    "half=top,side=left,facing=south": { "model": "clocktower:block/clock_mirror", "uvlock": true},
+    "half=bottom,side=left,facing=south": { "model": "clocktower:block/clock", "uvlock": true},
+    "half=top,side=right,facing=south": { "model": "clocktower:block/clock", "uvlock": true, "x": 180, "y": 180},
+    "half=bottom,side=right,facing=south": { "model": "clocktower:block/clock_mirror", "uvlock": true, "x": 180, "y": 180},
+
+    "half=top,side=left,facing=east": { "model": "clocktower:block/clock_mirror", "uvlock": true, "y": 270},
+    "half=bottom,side=left,facing=east": { "model": "clocktower:block/clock", "uvlock": true, "y": 270},
+    "half=top,side=right,facing=east": { "model": "clocktower:block/clock", "uvlock": true, "x": 180, "y": 90},
+    "half=bottom,side=right,facing=east": { "model": "clocktower:block/clock_mirror", "uvlock": true, "x": 180, "y": 90},
+
+    "half=top,side=left,facing=west": { "model": "clocktower:block/clock_mirror", "uvlock": true, "y": 90},
+    "half=bottom,side=left,facing=west": { "model": "clocktower:block/clock", "uvlock": true, "y": 90},
+    "half=top,side=right,facing=west": { "model": "clocktower:block/clock", "uvlock": true, "x": 180, "y": 270},
+    "half=bottom,side=right,facing=west": { "model": "clocktower:block/clock_mirror", "uvlock": true, "x": 180, "y": 270}
+  }
+}
