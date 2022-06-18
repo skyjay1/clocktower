@@ -1,4 +1,6 @@
 {
-  "item.clocktower.clock": "Clock",
-  "block.clocktower.clock": "Clock"
+  "item.clocktower.clock2": "Clock (2x2)",
+  "block.clocktower.clock2": "Clock (2x2)",
+  "item.clocktower.clock3": "Clock (3x3)",
+  "block.clocktower.clock3": "Clock (3x3)"
 }

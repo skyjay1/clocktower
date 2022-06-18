@@ -24,11 +24,11 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClockBlock extends HorizontalBlock {
+public class Clock2Block extends HorizontalBlock {
 
     public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
 
-    public static final EnumProperty<Side> SIDE = EnumProperty.create("side", ClockBlock.Side.class);
+    public static final EnumProperty<Side> SIDE = EnumProperty.create("side", Clock2Block.Side.class);
 
     private static final VoxelShape SHAPE_NORTH = box(0, 0, 14, 16, 16, 16);
     private static final VoxelShape SHAPE_SOUTH = box(0, 0, 0, 16, 16, 2);
@@ -37,7 +37,7 @@ public class ClockBlock extends HorizontalBlock {
 
     private final Map<BlockState, VoxelShape> SHAPES = new HashMap<>();
 
-    public ClockBlock(Properties properties) {
+    public Clock2Block(Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(SIDE, Side.LEFT)
@@ -116,7 +116,7 @@ public class ClockBlock extends HorizontalBlock {
 
     @Override
     public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
-        return SHAPES.computeIfAbsent(state, ClockBlock::computeShape);
+        return SHAPES.computeIfAbsent(state, Clock2Block::computeShape);
     }
 
     private static VoxelShape computeShape(final BlockState state) {
@@ -142,7 +142,7 @@ public class ClockBlock extends HorizontalBlock {
     @Nullable
     @Override
     public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new ClockBlockEntity();
+        return new Clock2BlockEntity();
     }
 
     public static enum Side implements IStringSerializable {

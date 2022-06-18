@@ -12,12 +12,16 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public static void setup(final FMLClientSetupEvent event) {
-        event.enqueueWork(() -> RenderTypeLookup.setRenderLayer(EventHandler.BlockReg.CLOCK, RenderType.cutout()));
-        event.enqueueWork(() -> ClientRegistry.bindTileEntityRenderer(EventHandler.BlockEntityReg.CLOCK_TYPE, ClockBlockEntityRenderer::new));
+        event.enqueueWork(() -> RenderTypeLookup.setRenderLayer(EventHandler.BlockReg.CLOCK2, RenderType.cutout()));
+        event.enqueueWork(() -> ClientRegistry.bindTileEntityRenderer(EventHandler.BlockEntityReg.CLOCK2_TYPE, Clock2BlockEntityRenderer::new));
+
+        event.enqueueWork(() -> RenderTypeLookup.setRenderLayer(EventHandler.BlockReg.CLOCK3, RenderType.cutout()));
+        event.enqueueWork(() -> ClientRegistry.bindTileEntityRenderer(EventHandler.BlockEntityReg.CLOCK3_TYPE, Clock3BlockEntityRenderer::new));
     }
 
     @SubscribeEvent
     public static void registerModel(final ModelRegistryEvent event) {
-        ModelLoader.addSpecialModel(ClockBlockEntityRenderer.HAND_2);
+        ModelLoader.addSpecialModel(Clock2BlockEntityRenderer.HAND_2);
+        ModelLoader.addSpecialModel(Clock3BlockEntityRenderer.HAND_3);
     }
 }

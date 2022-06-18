@@ -17,28 +17,43 @@ public class EventHandler {
     @ObjectHolder(ClockTower.MODID)
     public static final class BlockReg {
 
-        @ObjectHolder("clock")
-        public static final Block CLOCK = null;
+        @ObjectHolder("clock2")
+        public static final Block CLOCK2 = null;
+
+        @ObjectHolder("clock3")
+        public static final Block CLOCK3 = null;
 
         @SubscribeEvent
         public static void register(final RegistryEvent.Register<Block> event) {
-            event.getRegistry().register(new ClockBlock(AbstractBlock.Properties.of(Material.WOOD)
+            event.getRegistry().register(new Clock2Block(AbstractBlock.Properties.of(Material.WOOD)
                     .noCollission().noOcclusion().strength(2.0F, 3.0F).sound(SoundType.WOOD))
-                    .setRegistryName(ClockTower.MODID, "clock"));
+                    .setRegistryName(ClockTower.MODID, "clock2"));
+
+            event.getRegistry().register(new Clock3Block(AbstractBlock.Properties.of(Material.WOOD)
+                    .noCollission().noOcclusion().strength(2.0F, 3.0F).sound(SoundType.WOOD))
+                    .setRegistryName(ClockTower.MODID, "clock3"));
         }
     }
 
     @ObjectHolder(ClockTower.MODID)
     public static final class BlockEntityReg {
 
-        @ObjectHolder("clock")
-        public static final TileEntityType<ClockBlockEntity> CLOCK_TYPE = null;
+        @ObjectHolder("clock2")
+        public static final TileEntityType<Clock2BlockEntity> CLOCK2_TYPE = null;
+
+        @ObjectHolder("clock3")
+        public static final TileEntityType<Clock3BlockEntity> CLOCK3_TYPE = null;
+
 
         @SubscribeEvent
         public static void register(final RegistryEvent.Register<TileEntityType<?>> event) {
-            TileEntityType<ClockBlockEntity> tentDoorType = TileEntityType.Builder.of(ClockBlockEntity::new,
-                    BlockReg.CLOCK).build(null);
-            event.getRegistry().register(tentDoorType.setRegistryName(ClockTower.MODID, "clock"));
+            TileEntityType<Clock2BlockEntity> clockBlockEntity = TileEntityType.Builder.of(Clock2BlockEntity::new,
+                    BlockReg.CLOCK2).build(null);
+            event.getRegistry().register(clockBlockEntity.setRegistryName(ClockTower.MODID, "clock2"));
+
+            TileEntityType<Clock3BlockEntity> bigClockBlockEntity = TileEntityType.Builder.of(Clock3BlockEntity::new,
+                    BlockReg.CLOCK3).build(null);
+            event.getRegistry().register(bigClockBlockEntity.setRegistryName(ClockTower.MODID, "clock3"));
         }
     }
 
@@ -48,8 +63,12 @@ public class EventHandler {
         @SubscribeEvent
         public static void register(final RegistryEvent.Register<Item> event) {
             event.getRegistry().register(
-                    new BlockItem(BlockReg.CLOCK, new Item.Properties().tab(ItemGroup.TAB_DECORATIONS))
-                            .setRegistryName(ClockTower.MODID, "clock"));
+                    new BlockItem(BlockReg.CLOCK2, new Item.Properties().tab(ItemGroup.TAB_DECORATIONS))
+                            .setRegistryName(ClockTower.MODID, "clock2"));
+
+            event.getRegistry().register(
+                    new BlockItem(BlockReg.CLOCK3, new Item.Properties().tab(ItemGroup.TAB_DECORATIONS))
+                            .setRegistryName(ClockTower.MODID, "clock3"));
         }
     }
 }

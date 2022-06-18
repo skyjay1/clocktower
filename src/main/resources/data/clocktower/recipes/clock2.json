@@ -1,0 +1,13 @@
+{
+  "type": "crafting_shapeless",
+  "ingredients": [
+    { "item": "minecraft:clock" },
+    { "item": "minecraft:clock" },
+    { "item": "minecraft:clock" },
+    { "item": "minecraft:clock" }
+  ],
+  "result": {
+    "item": "clocktower:clock2",
+    "count": 1
+  }
+}

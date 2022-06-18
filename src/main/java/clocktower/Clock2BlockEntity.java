@@ -2,10 +2,10 @@ package clocktower;
 
 import net.minecraft.tileentity.TileEntity;
 
-public class ClockBlockEntity extends TileEntity {
+public class Clock2BlockEntity extends TileEntity {
 
-    public ClockBlockEntity() {
-        super(EventHandler.BlockEntityReg.CLOCK_TYPE);
+    public Clock2BlockEntity() {
+        super(EventHandler.BlockEntityReg.CLOCK2_TYPE);
     }
 
     public float getHour() {
