@@ -22,13 +22,13 @@ import java.util.EnumMap;
 import java.util.Map;
 import java.util.Random;
 
-public class ClockBlockEntityRenderer implements BlockEntityRenderer<ClockBlockEntity> {
+public class Clock2BlockEntityRenderer implements BlockEntityRenderer<Clock2BlockEntity> {
 
     public static final ResourceLocation HAND_2 = new ResourceLocation(ClockTower.MODID, "block/clock_hand2");
 
     private final Map<Direction, Vector3d> rotations = new EnumMap<>(Direction.class);
 
-    public ClockBlockEntityRenderer(BlockEntityRendererProvider.Context context) {
+    public Clock2BlockEntityRenderer(BlockEntityRendererProvider.Context context) {
         rotations.put(Direction.NORTH, new Vector3d(0, 0, 11.0D / 16.0D));
         rotations.put(Direction.SOUTH, new Vector3d(1, 0, 5.0D / 16.0D));
         rotations.put(Direction.WEST, new Vector3d(11.0D / 16.0D, 0, 1.0D));
@@ -36,13 +36,13 @@ public class ClockBlockEntityRenderer implements BlockEntityRenderer<ClockBlockE
     }
 
     @Override
-    public void render(ClockBlockEntity blockEntity, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn,
+    public void render(Clock2BlockEntity blockEntity, float partialTicks, PoseStack matrixStackIn, MultiBufferSource bufferIn,
                        int packedLightIn, int packedOverlayIn) {
         // values
         BlockState blockState = blockEntity.getBlockState();
         BlockPos blockPos = blockEntity.getBlockPos();
         boolean checkSides = false;
-        Direction facing = blockState.getValue(ClockBlock.FACING);
+        Direction facing = blockState.getValue(Clock2Block.FACING);
         float time = blockEntity.getHour();
         float rotation = time * 30.0F;
         // create vertex builder
@@ -63,5 +63,15 @@ public class ClockBlockEntityRenderer implements BlockEntityRenderer<ClockBlockE
                 blockState, blockPos, matrixStackIn, vertexBuilder,
                 checkSides, new Random(), blockState.getSeed(blockPos), packedOverlayIn, EmptyModelData.INSTANCE);
         matrixStackIn.popPose();
+    }
+
+    @Override
+    public int getViewDistance() {
+        return 264;
+    }
+
+    @Override
+    public boolean shouldRenderOffScreen(Clock2BlockEntity blockEntity) {
+        return true;
     }
 }

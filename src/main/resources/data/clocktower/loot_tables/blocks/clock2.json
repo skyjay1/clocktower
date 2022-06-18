@@ -9,14 +9,14 @@
           "conditions": [
             {
               "condition": "minecraft:block_state_property",
-              "block": "clocktower:clock",
+              "block": "clocktower:clock2",
               "properties": {
                 "half": "bottom",
                 "side": "left"
               }
             }
           ],
-          "name": "clocktower:clock"
+          "name": "clocktower:clock2"
         }
       ],
       "conditions": [

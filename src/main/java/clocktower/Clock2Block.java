@@ -25,11 +25,11 @@ import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClockBlock extends HorizontalDirectionalBlock implements EntityBlock {
+public class Clock2Block extends HorizontalDirectionalBlock implements EntityBlock {
 
     public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
 
-    public static final EnumProperty<Side> SIDE = EnumProperty.create("side", ClockBlock.Side.class);
+    public static final EnumProperty<Side> SIDE = EnumProperty.create("side", Clock2Block.Side.class);
 
     private static final VoxelShape SHAPE_NORTH = box(0, 0, 14, 16, 16, 16);
     private static final VoxelShape SHAPE_SOUTH = box(0, 0, 0, 16, 16, 2);
@@ -38,7 +38,7 @@ public class ClockBlock extends HorizontalDirectionalBlock implements EntityBloc
 
     private final Map<BlockState, VoxelShape> SHAPES = new HashMap<>();
 
-    public ClockBlock(BlockBehaviour.Properties properties) {
+    public Clock2Block(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(SIDE, Side.LEFT)
@@ -117,7 +117,7 @@ public class ClockBlock extends HorizontalDirectionalBlock implements EntityBloc
 
     @Override
     public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext context) {
-        return SHAPES.computeIfAbsent(state, ClockBlock::computeShape);
+        return SHAPES.computeIfAbsent(state, Clock2Block::computeShape);
     }
 
     private static VoxelShape computeShape(final BlockState state) {
@@ -140,7 +140,7 @@ public class ClockBlock extends HorizontalDirectionalBlock implements EntityBloc
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
         if(state.getValue(HALF) == Half.BOTTOM && state.getValue(SIDE) == Side.LEFT) {
-            return new ClockBlockEntity(pos, state);
+            return new Clock2BlockEntity(pos, state);
         }
         return null;
     }

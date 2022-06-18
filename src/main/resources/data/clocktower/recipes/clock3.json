@@ -4,10 +4,15 @@
     { "item": "minecraft:clock" },
     { "item": "minecraft:clock" },
     { "item": "minecraft:clock" },
+    { "item": "minecraft:clock" },
+    { "item": "minecraft:clock" },
+    { "item": "minecraft:clock" },
+    { "item": "minecraft:clock" },
+    { "item": "minecraft:clock" },
     { "item": "minecraft:clock" }
   ],
   "result": {
-    "item": "clocktower:clock",
+    "item": "clocktower:clock3",
     "count": 1
   }
 }
