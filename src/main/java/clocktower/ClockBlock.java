@@ -1,30 +1,31 @@
 package clocktower;
 
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockState;
-import net.minecraft.block.HorizontalBlock;
-import net.minecraft.block.material.PushReaction;
-import net.minecraft.item.BlockItemUseContext;
-import net.minecraft.state.EnumProperty;
-import net.minecraft.state.StateContainer;
-import net.minecraft.state.properties.BlockStateProperties;
-import net.minecraft.state.properties.Half;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.Direction;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.shapes.ISelectionContext;
-import net.minecraft.util.math.shapes.VoxelShape;
-import net.minecraft.world.IBlockReader;
-import net.minecraft.world.IWorld;
-import net.minecraft.world.World;
-import net.minecraftforge.common.util.Constants;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Direction;
+import net.minecraft.util.StringRepresentable;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.LevelAccessor;
+import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.block.EntityBlock;
+import net.minecraft.world.level.block.HorizontalDirectionalBlock;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.block.state.StateDefinition;
+import net.minecraft.world.level.block.state.properties.BlockStateProperties;
+import net.minecraft.world.level.block.state.properties.EnumProperty;
+import net.minecraft.world.level.block.state.properties.Half;
+import net.minecraft.world.level.material.PushReaction;
+import net.minecraft.world.phys.shapes.CollisionContext;
+import net.minecraft.world.phys.shapes.VoxelShape;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
 import java.util.Map;
 
-public class ClockBlock extends HorizontalBlock {
+public class ClockBlock extends HorizontalDirectionalBlock implements EntityBlock {
 
     public static final EnumProperty<Half> HALF = BlockStateProperties.HALF;
 
@@ -37,7 +38,7 @@ public class ClockBlock extends HorizontalBlock {
 
     private final Map<BlockState, VoxelShape> SHAPES = new HashMap<>();
 
-    public ClockBlock(Properties properties) {
+    public ClockBlock(BlockBehaviour.Properties properties) {
         super(properties);
         this.registerDefaultState(this.getStateDefinition().any()
                 .setValue(SIDE, Side.LEFT)
@@ -46,13 +47,13 @@ public class ClockBlock extends HorizontalBlock {
     }
 
     @Override
-    protected void createBlockStateDefinition(StateContainer.Builder<Block, BlockState> builder) {
+    protected void createBlockStateDefinition(StateDefinition.Builder<Block, BlockState> builder) {
         builder.add(SIDE).add(HALF).add(FACING);
     }
 
     @Nullable
     @Override
-    public BlockState getStateForPlacement(BlockItemUseContext context) {
+    public BlockState getStateForPlacement(BlockPlaceContext context) {
         BlockState state = defaultBlockState();
         // determine facing direction
         Direction facing = context.getHorizontalDirection().getOpposite();
@@ -71,7 +72,7 @@ public class ClockBlock extends HorizontalBlock {
     }
 
     @Override
-    public void onPlace(BlockState stateIn, World level, BlockPos pos, BlockState oldState, boolean isMoving) {
+    public void onPlace(BlockState stateIn, Level level, BlockPos pos, BlockState oldState, boolean isMoving) {
         if (stateIn.getValue(HALF) == Half.BOTTOM && stateIn.getValue(SIDE) == Side.LEFT) {
             Direction facing = stateIn.getValue(FACING);
             // create blockstates
@@ -82,14 +83,14 @@ public class ClockBlock extends HorizontalBlock {
             BlockState topRight = defaultBlockState().setValue(HALF, Half.TOP)
                     .setValue(SIDE, Side.RIGHT).setValue(FACING, facing);
             // set blocks
-            level.setBlock(pos.above(), topLeft, Constants.BlockFlags.DEFAULT);
-            level.setBlock(pos.relative(facing.getCounterClockWise()), bottomRight, Constants.BlockFlags.DEFAULT);
-            level.setBlock(pos.above().relative(facing.getCounterClockWise()), topRight, Constants.BlockFlags.DEFAULT);
+            level.setBlock(pos.above(), topLeft, Block.UPDATE_ALL);
+            level.setBlock(pos.relative(facing.getCounterClockWise()), bottomRight, Block.UPDATE_ALL);
+            level.setBlock(pos.above().relative(facing.getCounterClockWise()), topRight, Block.UPDATE_ALL);
         }
     }
 
     @Override
-    public void destroy(IWorld level, BlockPos pos, BlockState state) {
+    public void destroy(LevelAccessor level, BlockPos pos, BlockState state) {
         BlockPos half;
         BlockPos side;
         BlockPos diag;
@@ -115,7 +116,7 @@ public class ClockBlock extends HorizontalBlock {
     }
 
     @Override
-    public VoxelShape getShape(BlockState state, IBlockReader reader, BlockPos pos, ISelectionContext context) {
+    public VoxelShape getShape(BlockState state, BlockGetter reader, BlockPos pos, CollisionContext context) {
         return SHAPES.computeIfAbsent(state, ClockBlock::computeShape);
     }
 
@@ -130,22 +131,21 @@ public class ClockBlock extends HorizontalBlock {
         }
     }
 
+    @Override
     public PushReaction getPistonPushReaction(BlockState state) {
         return PushReaction.DESTROY;
     }
 
-    @Override
-    public boolean hasTileEntity(BlockState state) {
-        return state.getValue(HALF) == Half.BOTTOM && state.getValue(SIDE) == Side.LEFT;
-    }
-
     @Nullable
     @Override
-    public TileEntity createTileEntity(BlockState state, IBlockReader world) {
-        return new ClockBlockEntity();
+    public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
+        if(state.getValue(HALF) == Half.BOTTOM && state.getValue(SIDE) == Side.LEFT) {
+            return new ClockBlockEntity(pos, state);
+        }
+        return null;
     }
 
-    public static enum Side implements IStringSerializable {
+    public static enum Side implements StringRepresentable {
         LEFT("left"),
         RIGHT("right");
 

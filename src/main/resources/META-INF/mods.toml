@@ -1,15 +1,15 @@
 modLoader="javafml"
-loaderVersion="[36,)"
+loaderVersion="[40,)"
 license="GNU GPL3"
 [[mods]]
     modId="clocktower"
-    version="16.5.0"
+    version="18.2.0"
     displayName="Clock Tower"
     authors="skyjay1"
     description="I like big clocks"
 [[dependencies.clocktower]] #optional
     modId="forge" #mandatory
     mandatory=true #mandatory
-    versionRange="[36,)" #mandatory
+    versionRange="[40,)" #mandatory
     ordering="NONE"
     side="BOTH"

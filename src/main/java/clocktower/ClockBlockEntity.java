@@ -1,11 +1,13 @@
 package clocktower;
 
-import net.minecraft.tileentity.TileEntity;
+import net.minecraft.core.BlockPos;
+import net.minecraft.world.level.block.entity.BlockEntity;
+import net.minecraft.world.level.block.state.BlockState;
 
-public class ClockBlockEntity extends TileEntity {
+public class ClockBlockEntity extends BlockEntity {
 
-    public ClockBlockEntity() {
-        super(EventHandler.BlockEntityReg.CLOCK_TYPE);
+    public ClockBlockEntity(BlockPos pos, BlockState blockState) {
+        super(EventHandler.BlockEntityReg.CLOCK_TYPE, pos, blockState);
     }
 
     public float getHour() {

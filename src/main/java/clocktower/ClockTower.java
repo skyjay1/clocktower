@@ -7,6 +7,7 @@ import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.config.ModConfigEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
 @Mod(ClockTower.MODID)
@@ -35,11 +36,11 @@ public final class ClockTower {
         });
     }
 
-    public static void loadConfig(final ModConfig.Loading event) {
+    public static void loadConfig(final ModConfigEvent.Loading event) {
         CONFIG.bake();
     }
 
-    public static void reloadConfig(final ModConfig.Reloading event) {
+    public static void reloadConfig(final ModConfigEvent.Reloading event) {
         CONFIG.bake();
     }
 }
