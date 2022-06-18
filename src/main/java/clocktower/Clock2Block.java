@@ -89,6 +89,12 @@ public class Clock2Block extends HorizontalBlock {
     }
 
     @Override
+    public void onRemove(BlockState oldState, World level, BlockPos pos, BlockState newState, boolean isMoving) {
+        super.onRemove(oldState, level, pos, newState, isMoving);
+        destroy(level, pos, oldState);
+    }
+
+    @Override
     public void destroy(IWorld level, BlockPos pos, BlockState state) {
         BlockPos half;
         BlockPos side;
